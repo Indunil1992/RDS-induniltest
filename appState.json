@@ -8,7 +8,8 @@
         "type": "DIRECTORY",
         "isDirectory": true,
         "children": [
-          "abfedf6e-007c-41f4-b947-327fab3f94e4"
+          "abfedf6e-007c-41f4-b947-327fab3f94e4",
+          "502cd18c-f1fd-4dda-856d-d819f5cb5bc2"
         ],
         "isRemovable": false,
         "filePath": "RDS-induniltest"
@@ -22,7 +23,7 @@
         "children": [],
         "isRemovable": true,
         "filePath": "RDS-induniltest/lambda.js",
-        "code": "exports.handler = function(event, context, callback) {\n    \n    callback(null, {\"message\": \"Successfully executed\"});\n}",
+        "code": "let SL_AWS = require('slappforge-sdk-aws');\nlet connectionManager = require('./ConnectionManager');\nconst rds = new SL_AWS.RDS(connectionManager);\n\nexports.handler = function (event, context, callback) {\n\n\n    // You can pass the existing connection to this function.\n    // A new connection will be created if it's not present as the third param \n    // You must always end/destroy the DB connection after it's used\n    rds.query({\n        instanceIdentifier: 'instance1',\n        query: 'CREATE TABLE Persons (     PersonID int,     LastName varchar(255),     FirstName varchar(255),     Address varchar(255),     City varchar(255)  );',\n        inserts: [1, raj, ind, \"no142 pallekele\", \"Kandy\"]\n    }, function (error, results, connection) {\n        if (error) {\n            console.log(\"Error occurred\");\n            throw error;\n        } else {\n            console.log(\"Success\")\n            console.log(results);\n        }\n\n        connection.end();\n    });\n\n\n\n\n    callback(null, { \"message\": \"Successfully executed\" });\n}",
         "config": {
           "runtime": "nodejs8.10",
           "handler": "handler",
@@ -35,7 +36,26 @@
             "resourceName": "apigusEast1testinduniltestinduany",
             "config": {}
           }
-        ]
+        ],
+        "testCases": {
+          "cdbb138f-d4f9-4819-b0ce-2ae95eded2ba": {
+            "id": "cdbb138f-d4f9-4819-b0ce-2ae95eded2ba",
+            "name": "Unnamed event",
+            "functionId": "abfedf6e-007c-41f4-b947-327fab3f94e4",
+            "event": "{\n    \"key1\": \"value1\",\n    \"key2\": \"value2\",\n    \"key3\": \"value3\"\n}"
+          }
+        }
+      },
+      "502cd18c-f1fd-4dda-856d-d819f5cb5bc2": {
+        "id": "502cd18c-f1fd-4dda-856d-d819f5cb5bc2",
+        "parent": "c1ec8551-eb11-4001-b295-5d94c1d7f883",
+        "name": "ConnectionManager.js",
+        "type": "JS_FILE",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "RDS-induniltest/ConnectionManager.js",
+        "code": "module.exports = function() {\n    this.dbConnections = [];\n\n    this.dbConnections[\"instance1\"] = {\n        host: process.env.EndPoint_rdsInstance1,\n        port: process.env.Port_rdsInstance1,\n        user: process.env.User_rdsInstance1,\n        password: process.env.Password_rdsInstance1,\n        database: \"induniltestdb\"\n    };\n};"
       }
     },
     "deletedFiles": [],
@@ -63,6 +83,48 @@
           "stageName": "test",
           "mode": 0
         }
+      },
+      "rds-instance1": {
+        "name": "rds-instance1",
+        "type": "RDS",
+        "config": {
+          "editMode": false,
+          "operation": 0,
+          "rdsInstance": {
+            "rdsEngineType": "mysql",
+            "rdsEdition": "",
+            "rdsInstanceSpec": {
+              "dbInstanceClass": "db.t2.micro",
+              "dbLicenseModel": "general-public-license",
+              "dbEngineVersion": "5.7.19"
+            },
+            "rdsSetting": {
+              "instanceIdentifier": "instance1",
+              "masterUsername": "indunilsachithra",
+              "masterPassword": "indunilsachithra"
+            },
+            "rdsDBOptions": {
+              "dbName": "induniltestdb",
+              "dbPort": "3306"
+            },
+            "rdsInstanceArn": "",
+            "Host": "",
+            "doesExist": false,
+            "initializationQuery": "",
+            "alreadyDeployed": false
+          },
+          "rdsInstanceResources": [],
+          "projectRegion": "us-east-1",
+          "mode": 0,
+          "additionalFiles": [],
+          "params": {
+            "query": "CREATE TABLE Persons (     PersonID int,     LastName varchar(255),     FirstName varchar(255),     Address varchar(255),     City varchar(255)  );",
+            "inserts": "1,raj,ind,\"no142 pallekele\",\"Kandy\""
+          },
+          "isGlobalEditMode": false,
+          "enableInject": true,
+          "isNewFromGlobal": false
+        }
       }
     },
     "customTemplate": {
@@ -80,7 +142,15 @@
       }
     ],
     "packageJSON": {
-      "dependencies": {}
+      "dependencies": {
+        "slappforge-sdk-aws": {
+          "name": "slappforge-sdk-aws",
+          "language": "javascript",
+          "version": "0.0.5",
+          "dev": false,
+          "notRemovable": false
+        }
+      }
     }
   },
   "PROJECT_META": {
@@ -90,7 +160,7 @@
     "projectRegion": "us-east-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1563860130227
+    "lastSave": 1563860768394
   },
   "VCS_STATE": {
     "provider": "GitHub",
