@@ -10,8 +10,8 @@ exports.handler = function (event, context, callback) {
     // You must always end/destroy the DB connection after it's used
     rds.query({
         instanceIdentifier: 'instance1',
-        query: 'CREATE TABLE Persons (     PersonID int,     LastName varchar(255),     FirstName varchar(255),     Address varchar(255),     City varchar(255)  );',
-        inserts: [1, "raj", "ind", "no142 pallekele", "Kandy"]
+        query: 'CREATE TABLE Persons1(     PersonID int,     LastName varchar(255),     FirstName varchar(255),     Address varchar(255),     City varchar(255)  );',
+        inserts: [2, "hera", "sach", "no142 pallekele", "Kandy"]
     }, function (error, results, connection) {
         if (error) {
             console.log("Error occurred");
