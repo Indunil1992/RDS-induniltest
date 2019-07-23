@@ -23,7 +23,7 @@
         "children": [],
         "isRemovable": true,
         "filePath": "RDS-induniltest/lambda.js",
-        "code": "let SL_AWS = require('slappforge-sdk-aws');\nlet connectionManager = require('./ConnectionManager');\nconst rds = new SL_AWS.RDS(connectionManager);\n\nexports.handler = function (event, context, callback) {\n\n\n    // You can pass the existing connection to this function.\n    // A new connection will be created if it's not present as the third param \n    // You must always end/destroy the DB connection after it's used\n    rds.query({\n        instanceIdentifier: 'instance1',\n        query: 'CREATE TABLE Persons1(     PersonID int,     LastName varchar(255),     FirstName varchar(255),     Address varchar(255),     City varchar(255)  );',\n        inserts: [2, \"hera\", \"sach\", \"no142 pallekele\", \"Kandy\"]\n    }, function (error, results, connection) {\n        if (error) {\n            console.log(\"Error occurred\");\n            throw error;\n        } else {\n            console.log(\"Success\")\n            console.log(results);\n        }\n\n        connection.end();\n    });\n\n\n\n\n    callback(null, { \"message\": \"Successfully executed\" });\n}",
+        "code": "let SL_AWS = require('slappforge-sdk-aws');\nlet connectionManager = require('./ConnectionManager');\nconst rds = new SL_AWS.RDS(connectionManager);\n\nexports.handler = function (event, context, callback) {\n\n    // You must always end/destroy the DB connection after it's used\n    rds.beginTransaction({\n        instanceIdentifier: 'INDinstance2'\n    }, function (error, connection) {\n        if (error) {\n            throw error;\n        }\n    });\n\n\n    callback(null, { \"message\": \"Successfully executed\" });\n}",
         "config": {
           "runtime": "nodejs8.10",
           "handler": "handler",
@@ -55,7 +55,7 @@
         "children": [],
         "isRemovable": true,
         "filePath": "RDS-induniltest/ConnectionManager.js",
-        "code": "module.exports = function() {\n    this.dbConnections = [];\n\n    this.dbConnections[\"instance1\"] = {\n        host: process.env.EndPoint_rdsInstance1,\n        port: process.env.Port_rdsInstance1,\n        user: process.env.User_rdsInstance1,\n        password: process.env.Password_rdsInstance1,\n        database: \"induniltestdb\"\n    };\n};"
+        "code": "module.exports = function() {\n    this.dbConnections = [];\n\n    this.dbConnections[\"INDinstance2\"] = {\n        host: process.env.EndPoint_rdsINDinstance2,\n        port: process.env.Port_rdsINDinstance2,\n        user: process.env.User_rdsINDinstance2,\n        password: process.env.Password_rdsINDinstance2,\n        database: \"indpalitha\"\n    };\n};"
       }
     },
     "deletedFiles": [],
@@ -84,12 +84,12 @@
           "mode": 0
         }
       },
-      "rds-instance1": {
-        "name": "rds-instance1",
+      "rds-INDinstance2": {
+        "name": "rds-INDinstance2",
         "type": "RDS",
         "config": {
-          "operation": 0,
-          "editMode": true,
+          "editMode": false,
+          "operation": 1,
           "rdsInstance": {
             "rdsEngineType": "mysql",
             "rdsEdition": "",
@@ -99,27 +99,27 @@
               "dbEngineVersion": "5.7.19"
             },
             "rdsSetting": {
-              "instanceIdentifier": "instance1",
-              "masterUsername": "indunilsachithra",
-              "masterPassword": "indunilsachithra"
+              "instanceIdentifier": "INDinstance2",
+              "masterUsername": "indpalitha",
+              "masterPassword": "indpalitha"
             },
             "rdsDBOptions": {
-              "dbName": "induniltestdb",
+              "dbName": "indpalitha",
               "dbPort": "3306"
             },
             "rdsInstanceArn": "",
             "Host": "",
             "doesExist": false,
             "initializationQuery": "",
-            "alreadyDeployed": true
+            "alreadyDeployed": false
           },
           "rdsInstanceResources": [],
-          "mode": 0,
           "projectRegion": "us-east-1",
+          "mode": 0,
           "additionalFiles": [],
           "params": {
-            "query": "CREATE TABLE Persons1(     PersonID int,     LastName varchar(255),     FirstName varchar(255),     Address varchar(255),     City varchar(255)  );",
-            "inserts": "2,\"hera\",\"sach\",\"no142 pallekele\",\"Kandy\""
+            "query": "CREATE TABLE customer (PersonID int, LastName varchar(255), FirstName varchar(255), Address varchar(255), City varchar(255)  );",
+            "inserts": "3,\"silva\",\"Anne\",\"12/1 rd\",\"\"colombo\""
           },
           "isGlobalEditMode": false,
           "enableInject": true,
@@ -160,7 +160,7 @@
     "projectRegion": "us-east-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1563862782185
+    "lastSave": 1563863258241
   },
   "VCS_STATE": {
     "provider": "GitHub",
