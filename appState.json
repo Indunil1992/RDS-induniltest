@@ -23,7 +23,7 @@
         "children": [],
         "isRemovable": true,
         "filePath": "RDS-induniltest/lambda.js",
-        "code": "let SL_AWS = require('slappforge-sdk-aws');\nlet connectionManager = require('./ConnectionManager');\nconst rds = new SL_AWS.RDS(connectionManager);\n\nexports.handler = function (event, context, callback) {\n\n\n    // You can pass the existing connection to this function.\n    // A new connection will be created if it's not present as the third param \n    // You must always end/destroy the DB connection after it's used\n    rds.query({\n        instanceIdentifier: 'instance1',\n        query: 'CREATE TABLE Persons (     PersonID int,     LastName varchar(255),     FirstName varchar(255),     Address varchar(255),     City varchar(255)  );',\n        inserts: [1, raj, ind, \"no142 pallekele\", \"Kandy\"]\n    }, function (error, results, connection) {\n        if (error) {\n            console.log(\"Error occurred\");\n            throw error;\n        } else {\n            console.log(\"Success\")\n            console.log(results);\n        }\n\n        connection.end();\n    });\n\n\n\n\n    callback(null, { \"message\": \"Successfully executed\" });\n}",
+        "code": "let SL_AWS = require('slappforge-sdk-aws');\nlet connectionManager = require('./ConnectionManager');\nconst rds = new SL_AWS.RDS(connectionManager);\n\nexports.handler = function (event, context, callback) {\n\n\n    // You can pass the existing connection to this function.\n    // A new connection will be created if it's not present as the third param \n    // You must always end/destroy the DB connection after it's used\n    rds.query({\n        instanceIdentifier: 'instance1',\n        query: 'CREATE TABLE Persons (     PersonID int,     LastName varchar(255),     FirstName varchar(255),     Address varchar(255),     City varchar(255)  );',\n        inserts: [1, \"raj\", \"ind\", \"no142 pallekele\", \"Kandy\"]\n    }, function (error, results, connection) {\n        if (error) {\n            console.log(\"Error occurred\");\n            throw error;\n        } else {\n            console.log(\"Success\")\n            console.log(results);\n        }\n\n        connection.end();\n    });\n\n\n\n\n    callback(null, { \"message\": \"Successfully executed\" });\n}",
         "config": {
           "runtime": "nodejs8.10",
           "handler": "handler",
@@ -88,8 +88,8 @@
         "name": "rds-instance1",
         "type": "RDS",
         "config": {
-          "editMode": false,
           "operation": 0,
+          "editMode": true,
           "rdsInstance": {
             "rdsEngineType": "mysql",
             "rdsEdition": "",
@@ -111,15 +111,15 @@
             "Host": "",
             "doesExist": false,
             "initializationQuery": "",
-            "alreadyDeployed": false
+            "alreadyDeployed": true
           },
           "rdsInstanceResources": [],
-          "projectRegion": "us-east-1",
           "mode": 0,
+          "projectRegion": "us-east-1",
           "additionalFiles": [],
           "params": {
             "query": "CREATE TABLE Persons (     PersonID int,     LastName varchar(255),     FirstName varchar(255),     Address varchar(255),     City varchar(255)  );",
-            "inserts": "1,raj,ind,\"no142 pallekele\",\"Kandy\""
+            "inserts": "1,\"raj\",\"ind\",\"no142 pallekele\",\"Kandy\""
           },
           "isGlobalEditMode": false,
           "enableInject": true,
@@ -160,7 +160,7 @@
     "projectRegion": "us-east-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1563860768394
+    "lastSave": 1563861607081
   },
   "VCS_STATE": {
     "provider": "GitHub",
