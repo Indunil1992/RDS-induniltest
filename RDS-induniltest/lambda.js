@@ -4,26 +4,14 @@ const rds = new SL_AWS.RDS(connectionManager);
 
 exports.handler = function (event, context, callback) {
 
-
-    // You can pass the existing connection to this function.
-    // A new connection will be created if it's not present as the third param 
     // You must always end/destroy the DB connection after it's used
-    rds.query({
-        instanceIdentifier: 'instance10',
-        query: 'CREATE TABLE Persons12(     PersonID int,     LastName varchar(255),     FirstName varchar(255),     Address varchar(255),     City varchar(255)  );',
-        inserts: ["silva", "ann", "no142 kundasale", "kandy"]
-    }, function (error, results, connection) {
+    rds.beginTransaction({
+        instanceIdentifier: 'instance10'
+    }, function (error, connection) {
         if (error) {
-            console.log("Error occurred");
             throw error;
-        } else {
-            console.log("Success")
-            console.log(results);
         }
-
-        connection.end();
     });
-
 
 
 
