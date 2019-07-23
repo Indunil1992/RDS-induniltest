@@ -1,0 +1,102 @@
+{
+  "EDITOR_STATE": {
+    "allProjectFiles": {
+      "c1ec8551-eb11-4001-b295-5d94c1d7f883": {
+        "id": "c1ec8551-eb11-4001-b295-5d94c1d7f883",
+        "parent": null,
+        "name": "RDS-induniltest",
+        "type": "DIRECTORY",
+        "isDirectory": true,
+        "children": [
+          "abfedf6e-007c-41f4-b947-327fab3f94e4"
+        ],
+        "isRemovable": false,
+        "filePath": "RDS-induniltest"
+      },
+      "abfedf6e-007c-41f4-b947-327fab3f94e4": {
+        "id": "abfedf6e-007c-41f4-b947-327fab3f94e4",
+        "parent": "c1ec8551-eb11-4001-b295-5d94c1d7f883",
+        "name": "lambda.js",
+        "type": "JS_LAMBDA",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "RDS-induniltest/lambda.js",
+        "code": "exports.handler = function(event, context, callback) {\n    \n    callback(null, {\"message\": \"Successfully executed\"});\n}",
+        "config": {
+          "runtime": "nodejs8.10",
+          "handler": "handler",
+          "timeout": 60,
+          "memory": 128,
+          "layers": []
+        },
+        "triggers": [
+          {
+            "resourceName": "apigusEast1testinduniltestinduany",
+            "config": {}
+          }
+        ]
+      }
+    },
+    "deletedFiles": [],
+    "rootNode": "c1ec8551-eb11-4001-b295-5d94c1d7f883",
+    "openFiles": [
+      "abfedf6e-007c-41f4-b947-327fab3f94e4"
+    ],
+    "currentFileId": "abfedf6e-007c-41f4-b947-327fab3f94e4",
+    "resources": {
+      "apigusEast1testinduniltestinduany": {
+        "name": "apigusEast1testinduniltestinduany",
+        "type": "API_GATEWAY",
+        "config": {
+          "selectedRegion": "us-east-1",
+          "apiMode": 0,
+          "apiName": "testindunil",
+          "endpointType": "REGIONAL",
+          "resourceMode": 0,
+          "resourceName": "test/indu",
+          "resourcePath": "/test/indu",
+          "restMethod": "ANY",
+          "proxyIntegration": false,
+          "enableCORS": false,
+          "stageMode": 0,
+          "stageName": "test",
+          "mode": 0
+        }
+      }
+    },
+    "customTemplate": {
+      "dialect": null,
+      "definitions": {}
+    },
+    "envVariables": [
+      {
+        "lambdaId": "all",
+        "varKey": "SIGMA_AWS_ACC_ID",
+        "varValue": null,
+        "shouldPersist": false,
+        "displayOnly": false,
+        "editable": false
+      }
+    ],
+    "packageJSON": {
+      "dependencies": {}
+    }
+  },
+  "PROJECT_META": {
+    "projectName": "RDS-induniltest",
+    "projectDescription": "RDS-induniltest",
+    "projectVersion": "1.0.0",
+    "projectRegion": "us-east-1",
+    "platform": "AWS",
+    "platformRegions": {},
+    "lastSave": 1563860130227
+  },
+  "VCS_STATE": {
+    "provider": "GitHub",
+    "repo": {
+      "name": "RDS-induniltest",
+      "url": "https://github.com/Indunil1992/RDS-induniltest"
+    }
+  }
+}
